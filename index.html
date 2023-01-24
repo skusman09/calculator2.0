@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="cal-img.png">
+    <title>calculator</title>
+    <style>
+        body {
+            background-image: linear-gradient(rgb(0, 0, 0), rgb(82, 84, 84), rgb(58, 58, 58), rgb(0, 0, 0));
+            background-attachment: fixed;
+            /* display: flex; */
+            /* justify-content: center; */
+            /* background-image: url('black.jpg'); */
+            /* background-attachment: fixed; */
+            /* background-repeat: no-repeat; */
+            /* background-size: 100% 100%; */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            top: 20rem;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            /* background-color: #3d4543; */
+            backdrop-filter: blur(2px);
+            background: rgb(45, 43, 43);
+            border: none;
+            height: max-content;
+            width: max-content;
+            padding: 2rem .8rem 2.7rem;
+            box-shadow: 0px 0px 100px 5px rgba(66, 64, 64, 0.283),
+                0px 0px 100px 5px rgba(73, 71, 71, 0.591),
+                inset -5px -5px 15px rgb(0, 0, 0),
+                inset 5px 5px 15px rgb(0, 0, 0);
+            border-radius: 2rem;
+            position: absolute;
+            flex-wrap: wrap;
+            user-select: none;
+        }
+
+        .keys {
+            position: relative;
+            top: .5rem;
+        }
+
+        .button {
+            width: 2.5rem;
+            height: 2rem;
+            border: none;
+            border-radius: .5rem;
+            margin-left: 1.12rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .button.operator {
+            color: black;
+            background: linear-gradient(180deg, rgb(243, 160, 7), rgb(255, 230, 105));
+            box-shadow: inset -8px 0px 8px rgba(0, 0, 0, 0.493),
+                inset 0px 8px 8px rgba(0, 0, 0, 0.493);
+        }
+
+        .operator:active {
+            transform: scale(0.97);
+        }
+
+        .button.black {
+            color: rgb(0, 0, 0);
+            box-shadow: inset 0px 0px 10px 2px rgb(113, 105, 105),
+                inset 0px 0px 10px 2px rgb(0, 0, 0);
+        }
+
+        .black:active {
+            transform: scale(0.97);
+        }
+
+        /* equal button */
+        .button.orange {
+            background: linear-gradient(180deg, rgb(243, 160, 7), rgb(255, 230, 105));
+            box-shadow: inset -8px 0px 8px rgba(0, 0, 0, 0.493),
+                inset 0px 8px 8px rgba(0, 0, 0, 0.493);
+        }
+
+        .orange:active {
+            transform: scale(0.99);
+        }
+
+        .button.orange {
+            width: 13.85rem;
+            text-align: center;
+            position: relative;
+            top: 1rem;
+        }
+
+        p {
+            line-height: 2rem;
+        }
+
+        #d {
+            margin: 10px;
+            padding: 10px;
+            background: rgb(102, 113, 46);
+            height: 40px;
+            width: 13rem;
+            font-size: 30px;
+            font-weight: bolder;
+            border: 2px solid rgba(92, 91, 91, 0.833);
+            border-radius: .7rem;
+            box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.651),
+                inset -5px -5px 10px rgba(0, 0, 0, 0.68);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="box1">
+                <div class="display"><input type="text" readonly size="18" id="d"></div>
+                <div class="keys">
+                    </p>
+                    <p>
+                        <input type="button" class="button black" value="7" onclick='v("7")'>
+                        <input type="button" class="button black" value="8" onclick='v("8")'>
+                        <input type="button" class="button black" value="9" onclick='v("9")'>
+                        <input type="button" class="button operator" value="x" onclick='v("*")'>
+                    </p>
+                    <p>
+                        <input type="button" class="button black" value="4" onclick='v("4")'>
+                        <input type="button" class="button black" value="5" onclick='v("5")'>
+                        <input type="button" class="button black" value="6" onclick='v("6")'>
+                        <input type="button" class="button operator" value="-" onclick='v("-")'>
+                    </p>
+                    <p>
+                        <input type="button" class="button black" value="1" onclick='v("1")'>
+                        <input type="button" class="button black" value="2" onclick='v("2")'>
+                        <input type="button" class="button black" value="3" onclick='v("3")'>
+                        <input type="button" class="button operator" value="+" onclick='v("+")'>
+                    </p>
+                    <p>
+                        <input type="button" class="button black" value="C" onclick='c("")'>
+                        <input type="button" class="button black" value="0" onclick='v("0")'>
+                        <input type="button" class="button black" value="." onclick='v(".")'>
+                        <input type="button" class="button operator" value="/" onclick='v("/")'><br>
+                        <input type="button" class="button orange" value="=" onclick='e()'>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function c(val) {
+            document.getElementById("d").value = val;
+        }
+        function v(val) {
+            document.getElementById("d").value += val;
+        }
+        function e() {
+            try {
+                c(eval(document.getElementById("d").value))
+            }
+            catch (e) {
+                c('Error')
+            }
+        }
+
+    </script>
+</body>
+
+</html>
